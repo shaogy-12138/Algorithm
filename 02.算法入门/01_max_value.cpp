@@ -28,11 +28,13 @@ int main() {
     for(i = 0; i < w.size(); i++){
         sum += w[i];
         if(sum > c_max){
-            i--;
             break;
         }else if(sum == c_max){
+            i++;
             break;
         }
     }
+
+    cout<<"可以装载 "<<i<<" 件古董"<<endl;
     return 0;
 }
