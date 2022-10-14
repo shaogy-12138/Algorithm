@@ -10,7 +10,7 @@
 #include <stack>
 #include <queue>
 #include <time.h>
-
+#include <list>
 using namespace std;
 
 #define DisPlay(A) do{ \
@@ -30,11 +30,15 @@ cout<<"+"<<endl;}                        \
 void vector_test();
 void stack_test();
 void queue_test();
+void list_test();
+void deque_test();
 int main() {
 //    vector_test();
     srand(time(0));
 //    stack_test();
-    queue_test();
+//    queue_test();
+//    list_test();
+    deque_test();
     return 0;
 }
 
@@ -184,20 +188,128 @@ void queue_test(){
         int opt = rand() % 5;
         int val = rand() % 100;
         if(opt < 3){
-            cout<<"push "<<val<<" in queue."<< "queue's size = "<<q.size()<<endl;
             q.push(val);
+            cout<<"push "<<val<<" in queue."<< " cur queue's size = "<<q.size()<<endl;
+
         }else{
             val = q.front();
             q.pop();
-            cout<<"pop a val from q's head, "<<val<<"queue's size = "<<q.size()<<endl;
+            cout<<"pop "<<val<<" from q's head, cur queue's size = "<<q.size()<<endl;
         }
 
     }
-
+    queue<int>q_cpy;
+    q_cpy = q;
+    cout<<"q_cpy.size = "<<q_cpy.size()<<endl;
+    int q_cpy_size = q_cpy.size();
+    for(int i = 0; i < q_cpy_size; i++){
+        cout<<q_cpy.front()<<"  ";
+        q_cpy.pop();
+    }
+    cout<<endl;
     while(!q.empty()){
-        cout<<q.front()<<'\t';
+        cout<<q.front()<<"  ";
         q.pop();
     }
     cout<<endl;
+    return;
+}
+void list_test(){
+    /*
+     * 1. 创建
+     * 2. 插入
+     * 3. 删除
+     * 4. 排序
+     * 5. 翻转
+     * 6. 去重
+     * 7. 合并
+     *
+     */
+
+    list<int>l;
+    cout<<"l.size = "<<l.size()<<endl;
+
+    l.insert(l.begin(), 666);
+    cout<<"l.size = "<<l.size()<<endl;
+    l.insert(l.end(), 888);
+    cout<<"l.size = "<<l.size()<<endl;
+    for(int i = 0; i < 15; i++){
+        int opt = rand() % 5;
+        int val = rand() % 1000;
+        switch (opt) {
+            case 0:{
+                l.insert(l.begin(), val);
+                cout<<"from list begin insert "<<val<<endl;
+            }
+                break;
+            case 1:{
+                l.insert(l.end(), val);
+                cout<<"from list end inset "<<val<<endl;
+            }
+                break;
+            case 2:{
+                l.push_front(val);
+                cout<<"l.push_front "<<val<<endl;
+            }
+                break;
+            case 3:{
+                l.push_back(val);
+                cout<<"l.push_back "<<val<<endl;
+            }
+                break;
+            case 4:{
+                l.pop_back();
+                cout<<"l.pop_back "<<endl;
+            }
+        }
+        DisPlay(l); // 可以对链表进行遍历
+    }
+
+    l.sort();
+    cout<<"sort    list: ";
+    DisPlay(l);
+    l.reverse();
+    cout<<"reverse list: ";
+    DisPlay(l);
+//    cout<<"l.rend = "<<*(l.rend())<<endl;
+//    cout<<"l.end = "<<*(l.end())<<endl;
+//    cout<<"l.begin = "<<*(l.begin())<<endl;
+
+    // 链表复制
+    list<int>l_cpy(l);
+    list<int>l_cpp;
+    l_cpp = l_cpy;
+    DisPlay(l_cpy);
+    DisPlay(l_cpp);
+
+    //链表合并
+    list<int>sec_l = {1, 2, 4 ,99, 100, 100, 100, 256};
+    cout<<"sec_l.size = "<<sec_l.size()<<endl;
+    cout<<"sec_l: ";
+    DisPlay(sec_l);
+    l.reverse();
+    cout<<"l     : ";
+    DisPlay(l);
+    //l.merge(sec_l); // l 和 sec_l有序合并
+    l.splice(l.begin(), sec_l);  // sec_l | l  将sec_l插到l的前边
+    cout<<"l.size = "<<l.size()<<"  l        :";
+    DisPlay(l);
+    cout<<"sec_l.size = "<<sec_l.size()<<"  sec_l    :";
+    DisPlay(sec_l);
+
+    // 删除链表结点
+//    l.remove(100); // 删除链表中所有的100
+//    l.erase(l.begin()); // 这个erase好像只能删除表头
+
+    DisPlay(l);
+    l.clear(); // 清除链表
+    cout<<"l.size = "<<l.size()<<"  l        :";
+    DisPlay(l);
+
+    return;
+
+}
+void deque_test(){
+    deque<int>dq;
     return;
 }
